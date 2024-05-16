@@ -11,19 +11,19 @@ import (
 func TestPath(t *testing.T) {
 	path := Path()
 	t.Log(path)
-	require.True(t, strings.HasSuffix(path, "/runpath/runpath_test.go"))
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test.go"))
 }
 
 func TestCurrent(t *testing.T) {
 	path := Current()
 	t.Log(path)
-	require.True(t, strings.HasSuffix(path, "/runpath/runpath_test.go"))
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test.go"))
 }
 
 func TestCurrentPath(t *testing.T) {
 	path := CurrentPath()
 	t.Log(path)
-	require.True(t, strings.HasSuffix(path, "/runpath/runpath_test.go"))
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test.go"))
 }
 
 func TestCurrentName(t *testing.T) {
@@ -55,17 +55,17 @@ func TestSkip(t *testing.T) {
 func TestGetPathChangeExtension(t *testing.T) {
 	path := GetPathChangeExtension(".json")
 	t.Log(path)
-	require.True(t, strings.HasSuffix(path, "/runpath/runpath_test.json"))
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test.json"))
 }
 
 func TestGetPathRemoveExtension(t *testing.T) {
 	path := GetPathRemoveExtension()
 	t.Log(path)
-	require.True(t, strings.HasSuffix(path, "/runpath/runpath_test"))
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test"))
 }
 
 func TestGetSkipRemoveExtension(t *testing.T) {
 	path := GetSkipRemoveExtension(0)
 	t.Log(path)
-	require.True(t, strings.HasSuffix(path, "/runpath/runpath_test"))
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test"))
 }
