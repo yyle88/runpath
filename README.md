@@ -3,6 +3,11 @@
 
 使用 "runtime" 获得，因此包名起名为 "runpath" 即可，而不使用比较长的 executionlocation，但含义就是这样的，我还是喜欢短短的东西。
 
+使用到项目里：
+```shell
+go get github.com/yyle88/runpath
+```
+
 使用方法举例：
 ```
 path := runpath.Path()
