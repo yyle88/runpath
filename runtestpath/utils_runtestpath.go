@@ -26,7 +26,8 @@ func SrcName(t *testing.T) string {
 
 // SrcSkip 该函数在除以上两个场景以外暂时没有其他使用场景，但依然设置为 Export 的，或许在外面有别的用呢
 func SrcSkip(t *testing.T, skip int) string {
-	_, path, _, _ := runtime.Caller(1 + skip) //这里又调用了一层因此这里得补1次
+	_, path, _, ok := runtime.Caller(1 + skip) //这里又调用了一层因此这里得补1次
+	require.True(t, ok)
 	require.True(t, strings.HasSuffix(path, "_test.go"))
 	return path[:len(path)-len("_test.go")] + ".go"
 }
@@ -41,7 +42,8 @@ func SrcPathRemoveExtension(t *testing.T) string {
 }
 
 func SrcSkipRemoveExtension(t *testing.T, skip int) string {
-	_, path, _, _ := runtime.Caller(1 + skip)
+	_, path, _, ok := runtime.Caller(1 + skip)
+	require.True(t, ok)
 	require.True(t, strings.HasSuffix(path, "_test.go"))
 	return path[:len(path)-len("_test.go")]
 }

@@ -1,6 +1,7 @@
 package runpath
 
 import (
+	"errors"
 	"fmt"
 	"path/filepath"
 	"runtime"
@@ -38,7 +39,10 @@ func Name() string {
 // Skip(1) 相当于在相同位置调用runtime.Caller(1)的path
 // Skip(2) 相当于在相同位置调用runtime.Caller(2)的path
 func Skip(skip int) string {
-	_, path, _, _ := runtime.Caller(1 + skip) //这里又调用了一层因此这里得补1次
+	_, path, _, ok := runtime.Caller(1 + skip) //这里又调用了一层因此这里得补1次
+	if !ok {
+		panic(errors.New("wrong")) //因为在99%的场景下都是不会出错的，而且跟获取代码路径相关的逻辑，通常也不会用在线上环境，因此不要处理异常
+	}
 	return path
 }
 
@@ -57,7 +61,10 @@ func GetPathRemoveExtension() string {
 
 func GetSkipRemoveExtension(skip int) string {
 	const suffixGo = ".go"
-	_, path, _, _ := runtime.Caller(skip + 1)
+	_, path, _, ok := runtime.Caller(1 + skip)
+	if !ok {
+		panic(errors.New("wrong")) //因为在99%的场景下都是不会出错的，而且跟获取代码路径相关的逻辑，通常也不会用在线上环境，因此不要处理异常
+	}
 	if !strings.HasSuffix(strings.ToLower(path), suffixGo) {
 		panic(fmt.Errorf("%s %s", path, suffixGo))
 	}
