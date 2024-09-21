@@ -1,11 +1,11 @@
 package runpath
 
 import (
-	"errors"
-	"fmt"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/pkg/errors"
 )
 
 // Path 获得运行时的源码文件路径
@@ -66,7 +66,7 @@ func GetSkipRemoveExtension(skip int) string {
 		panic(errors.New("wrong")) //因为在99%的场景下都是不会出错的，而且跟获取代码路径相关的逻辑，通常也不会用在线上环境，因此不要处理异常
 	}
 	if !strings.HasSuffix(strings.ToLower(path), suffixGo) {
-		panic(fmt.Errorf("%s %s", path, suffixGo))
+		panic(errors.Errorf("%s %s", path, suffixGo))
 	}
 	return path[:len(path)-len(suffixGo)]
 }

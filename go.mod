@@ -2,7 +2,10 @@ module github.com/yyle88/runpath
 
 go 1.22.6
 
-require github.com/stretchr/testify v1.9.0
+require (
+	github.com/pkg/errors v0.9.1
+	github.com/stretchr/testify v1.9.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
