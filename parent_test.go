@@ -28,7 +28,7 @@ func Test_parentNamespace_Join(t *testing.T) {
 func Test_parentNamespace_Join1(t *testing.T) {
 	path := Path()
 	name := Name()
-	root := DIR.Path() // perhaps this variable should be named "dir", but "dir" is too ugly, more ugly than "ugly". so I prefer to use "root".
+	root := DIR.Path() // perhaps this variable should be named "dir", but "dir" is too ugly, more ugly than "ugly". so I prefer to use "root" to clean code.
 	path2 := filepath.Join(root, name)
 	require.Equal(t, path, path2)
 }
