@@ -3,6 +3,12 @@
 
 使用 "runtime" 获得，因此包名起名为 "runpath" 即可，而不使用比较长的 executionlocation，但含义就是这样的，我还是喜欢短短的东西。
 
+当然使用这个也是可行的，而且非常简便和标准：
+```
+filepath.Abs(".") //获得当前所在的目录
+```
+但它的结果也不总是符合预期的，有的时候不行。
+
 使用到项目里：
 ```shell
 go get github.com/yyle88/runpath

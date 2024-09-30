@@ -1,6 +1,7 @@
 package runpath
 
 import (
+	"path/filepath"
 	"runtime"
 	"strings"
 	"testing"
@@ -68,4 +69,11 @@ func TestGetSkipRemoveExtension(t *testing.T) {
 	path := GetSkipRemoveExtension(0)
 	t.Log(path)
 	require.True(t, strings.HasSuffix(path, "runpath/runpath_test"))
+}
+
+func TestAbsPath(t *testing.T) {
+	//这个方法也是可以的，但是它并不总是有效的，有时候它返回的是项目的根目录，但是在多数情况下也是能拿来用的
+	path, err := filepath.Abs(".")
+	require.NoError(t, err)
+	t.Log(path) //这里是对的，但不表示总是对的
 }
