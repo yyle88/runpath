@@ -26,16 +26,39 @@ func Test_parentNamespace_Join(t *testing.T) {
 }
 
 func Test_parentNamespace_Join1(t *testing.T) {
-	path := Path()
 	name := Name()
+	t.Log(name)
 	root := DIR.Path() // perhaps this variable should be named "dir", but "dir" is too ugly, more ugly than "ugly". so I prefer to use "root" to clean code.
-	path2 := filepath.Join(root, name)
-	require.Equal(t, path, path2)
+	t.Log(root)
+	path := filepath.Join(root, name)
+	t.Log(path)
+	want := Path()
+	t.Log(want)
+	require.Equal(t, want, path)
 }
 
 func Test_parentNamespace_Join2(t *testing.T) {
-	path := Path()
 	name := Name()
-	path2 := DIR.Join(name)
-	require.Equal(t, path, path2)
+	t.Log(name)
+	path := DIR.Join(name)
+	t.Log(path)
+	want := Path()
+	t.Log(want)
+	require.Equal(t, want, path)
+}
+
+func Test_parentNamespace_Up(t *testing.T) {
+	for depth := 0; depth < 10; depth++ {
+		t.Log(DIR.Up(depth))
+	}
+}
+
+func Test_parentNamespace_UpTo(t *testing.T) {
+	name := DIR.Name()
+	t.Log(name)
+	path := DIR.UpTo(1, name)
+	t.Log(path)
+	want := DIR.Path()
+	t.Log(want)
+	require.Equal(t, want, path)
 }

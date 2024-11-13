@@ -27,7 +27,21 @@ func (T *parentNamespace) Skip(skip int) string {
 
 func (T *parentNamespace) Join(names ...string) string {
 	path := filepath.Dir(Skip(1))
-	subs := []string{path}
-	subs = append(subs, names...)
-	return filepath.Join(subs...)
+	return filepath.Join(append([]string{path}, names...)...)
+}
+
+func (T *parentNamespace) Up(skip int) string {
+	path := filepath.Dir(Skip(1))
+	for i := 0; i < skip; i++ {
+		path = filepath.Dir(path)
+	}
+	return path
+}
+
+func (T *parentNamespace) UpTo(skip int, names ...string) string {
+	path := filepath.Dir(Skip(1))
+	for i := 0; i < skip; i++ {
+		path = filepath.Dir(path)
+	}
+	return filepath.Join(append([]string{path}, names...)...)
 }
