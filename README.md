@@ -1,3 +1,7 @@
+[![GoDoc](https://pkg.go.dev/badge/github.com/yyle88/runpath)](https://pkg.go.dev/github.com/yyle88/runpath)
+![Supported Go Versions](https://img.shields.io/badge/Go-1.22%2C%201.23-lightgrey.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yyle88/runpath)](https://goreportcard.com/report/github.com/yyle88/runpath)
+
 # runpath
 获取正在执行的golang代码的位置信息，即 execution location，即源代码go文件在电脑里的绝对路径和行号。
 
@@ -46,4 +50,18 @@ func TestSrcPathChangeExtension(t *testing.T) {
 ```
 DDDD，毕竟很多时候我们就是需要在 testcase 里读取当前目录下的配置文件，因此直接把绝对路径算出来有利于使用
 
-Give me stars! Thank you!
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Give stars
+
+Feel free to contribute or improve the package! Your stars and pull requests are welcome.
+
+## Thank You
+
+If you find this package valuable, give it a star on GitHub! Thank you!!!
+
+Give me stars! Thank you!!!
