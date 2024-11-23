@@ -1,3 +1,4 @@
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/yyle88/runpath/release.yml?branch=main&label=BUILD)](https://github.com/yyle88/runpath/actions/workflows/release.yml?query=branch%3Amain)
 [![GoDoc](https://pkg.go.dev/badge/github.com/yyle88/runpath)](https://pkg.go.dev/github.com/yyle88/runpath)
 [![Coverage Status](https://img.shields.io/coveralls/github/yyle88/runpath/master.svg)](https://coveralls.io/github/yyle88/runpath?branch=main)
 ![Supported Go Versions](https://img.shields.io/badge/Go-1.22%2C%201.23-lightgrey.svg)
@@ -5,52 +6,72 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/yyle88/runpath)](https://goreportcard.com/report/github.com/yyle88/runpath)
 
 # runpath
-获取正在执行的golang代码的位置信息，即 execution location，即源代码go文件在电脑里的绝对路径和行号。
 
-使用 "runtime" 获得，因此包名起名为 "runpath" 即可，而不使用比较长的 executionlocation，但含义就是这样的，我还是喜欢短短的东西。
+The `runpath` package provides functionality to get the execution location of Go code, including the absolute path of the source file and the line number.
 
-当然使用这个也是可行的，而且非常简便和标准：
+## README
+
+[中文说明](README.zh.md)
+
+The package name is `runpath`, which utilizes the Go `runtime` package. means `executionlocation`.
+
+You can also use the built-in approach:
+```go
+filepath.Abs(".") // Get the current directory
 ```
-filepath.Abs(".") //获得当前所在的目录
-```
-但它的结果也不总是符合预期的，有的时候不行。
+However, this doesn’t always provide the expected result in certain situations.
 
-使用到项目里：
+### Usage
+
 ```shell
 go get github.com/yyle88/runpath
 ```
 
-使用方法举例：
-```
+#### Example usage:
+
+```go
 path := runpath.Path()
 ```
-得到的就是当前这行代码所在文件的绝对路径啦
+This will return the absolute path of the current source file where the code is running.
 
-其次是读配置：
-```
+#### Reading Configuration Files
+
+You can also use the package to easily build paths to configuration files:
+
+```go
 path := runpath.DIR.Join("config.json")
 ```
-很明显它能帮你获取到配置文件路径，特别是在 testcase 测试用例中，不同的用例读不同的配置，也都是很正常的
 
-当然我还贴心的准备了个根据测试文件找源码的操作：
+```go
+path := runpath.PARENT.Join("config.json")
 ```
+This is especially useful in test cases, where different configurations may be loaded depending on the test.
+
+#### Locating Source Code in Test Cases
+
+If you need to generate source code in your tests and reference the source file path, you can use the following approach:
+
+```go
 func TestSrcPath(t *testing.T) {
-    path := SrcPath(t)
+    path := runpath.SrcPath(t)
     t.Log(path)
     require.True(t, strings.HasSuffix(path, "runpath/runtestpath/utils_runtestpath.go"))
 }
 ```
-这个的使用场景，比如你的测试用例 testcase 运行一下就会 generate 生成源码，而你生成的源码恰好要写在对应的源文件里，要做源代码生成这个是必不可少的
+This helps when generating source code that needs to be placed alongside the original files.
 
-在测试中读配置
-```
+#### Modifying File Extensions
+
+You can change the file extension based on the test context:
+
+```go
 func TestSrcPathChangeExtension(t *testing.T) {
-    path := SrcPathChangeExtension(t, ".json")
+    path := runpath.SrcPathChangeExtension(t, ".json")
     t.Log(path)
     require.True(t, strings.HasSuffix(path, "runpath/runtestpath/utils_runtestpath.json"))
 }
 ```
-DDDD，毕竟很多时候我们就是需要在 testcase 里读取当前目录下的配置文件，因此直接把绝对路径算出来有利于使用
+This is particularly useful for loading different file types, such as configuration files.
 
 ## License
 
@@ -58,12 +79,34 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## Give stars
+## Give Stars
 
 Feel free to contribute or improve the package! Your stars and pull requests are welcome.
 
 ## Thank You
 
-If you find this package valuable, give it a star on GitHub! Thank you!!!
+If you find this package valuable, please give it a star on GitHub! Thank you!!!
+
+---
+
+### Explanation of Functions:
+
+- `Path()`: Returns the absolute path of the source file at the point of execution.
+- `Current()`, `CurrentPath()`, `CurrentName()`, `Name()`: Variations of `Path()` to fetch the file path or name based on the current execution context.
+- `Skip(int)`: Allows you to get the path from a specified call frame (useful for getting caller locations).
+- `GetPathChangeExtension()`: Returns the path of the current source file with a new extension, e.g., changing `.go` to `.json`.
+- `GetPathRemoveExtension()`: Returns the path of the current source file without the `.go` extension.
+- `Join()`: Joins the current directory with additional path components, useful for building paths dynamically.
+- `Up()`, `UpTo()`: Navigate up the directory structure a specified number of levels.
+
+### For Test File Specific Operations:
+- `SrcPath(t *testing.T)`: Gets the source path of the file being tested.
+- `SrcName(t *testing.T)`: Gets the name of the source file being tested.
+- `SrcPathChangeExtension(t *testing.T, ext string)`: Changes the file extension of the test file path (e.g., from `.go` to `.json`).
+- `SrcSkipRemoveExtension(t *testing.T)`: Removes the `.go` extension from the test file path.
+
+This package is intended for use in test files where you need to reference source code paths or configuration files based on the location of your test file.
+
+--- 
 
 Give me stars! Thank you!!!
