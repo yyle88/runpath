@@ -1,4 +1,4 @@
-name: Create Release
+name: create-release
 
 on:
   push:
@@ -6,6 +6,50 @@ on:
       - 'v*'  # 以 'v' 开头的标签触发
 
 jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23.x"
+      - uses: actions/checkout@v4
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+
+    test:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          go: [ "1.22.x", "1.23.x" ]
+      steps:
+        - uses: actions/checkout@v4
+
+        - uses: actions/setup-go@v5
+          with:
+            go-version: ${{ matrix.go }}
+
+        - name: Run test
+          run: make test COVERAGE_DIR=/tmp/coverage
+
+        - name: Send goveralls coverage
+          uses: shogo82148/actions-goveralls@v1
+          with:
+            path-to-profile: /tmp/coverage/combined.txt
+            flag-name: Go-${{ matrix.go }}
+            parallel: true
+
+    check-coverage:
+      name: Check coverage
+      needs: [ test ]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: shogo82148/actions-goveralls@v1
+          with:
+            parallel-finished: true
+
   release:
     runs-on: ubuntu-latest
 
