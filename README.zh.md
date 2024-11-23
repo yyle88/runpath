@@ -38,7 +38,7 @@ path := runpath.PARENT.Path()
 
 此方法返回当前执行位置的源文件所在目录的绝对路径。
 
-#### 获取测试文件的路径：
+#### 获取被测试文件测试的源文件的路径：
 
 ```go
 path := runtestpath.SrcPath(t)

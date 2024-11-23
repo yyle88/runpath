@@ -45,7 +45,7 @@ path := runpath.PARENT.Path()
 
 This method returns the absolute path of the directory where the current source file resides, which can be useful for identifying the **execution directory abs-path**.
 
-#### Get the path of the test file being executed:
+#### Get the source file path of the test being executed in testing:
 
 ```go
 path := runtestpath.SrcPath(t)
