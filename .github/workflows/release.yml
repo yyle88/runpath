@@ -3,9 +3,9 @@ name: create-release
 on:
   push:
     branches:
-      - main  # 监听 main 分支的 push 操作
+      - main  # 监听 main 分支的 push 操作（编译和测试/代码检查）
     tags:
-      - 'v*'  # 同时监听以 'v' 开头的标签的 push 操作
+      - 'v*'  # 监听以 'v' 开头的标签的 push 操作（发布 Release）
 
 jobs:
   lint:
@@ -52,9 +52,13 @@ jobs:
         with:
           parallel-finished: true
 
+  # 发布 Release
   release:
+    name: Release a new version
+    needs: [ lint, test ]
     runs-on: ubuntu-latest
-
+    # 仅在推送标签时执行
+    if: ${{ success() && startsWith(github.ref, 'refs/tags/v') }}
     steps:
       # 1. 检出代码
       - name: Checkout code
