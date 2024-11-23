@@ -14,17 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 构建并打包
-      - name: Build and package
-        run: |
-          mkdir -p dist
-          # 假设你需要将代码打包成 tar.gz 文件
-          tar -czvf dist/release-name-v${{ github.ref_name }}.tar.gz .
-
-      # 3. 创建 Release 并上传源码包
+      # 2. 创建 Release 和上传源码包
       - name: Create Release
         uses: softprops/action-gh-release@v2
-        with:
-          files: dist/*.tar.gz  # 上传生成的压缩包
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
