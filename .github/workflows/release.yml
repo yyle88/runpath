@@ -2,8 +2,10 @@ name: create-release
 
 on:
   push:
+    branches:
+      - main  # 监听 main 分支的 push 操作
     tags:
-      - 'v*'  # 以 'v' 开头的标签触发
+      - 'v*'  # 同时监听以 'v' 开头的标签的 push 操作
 
 jobs:
   lint:

@@ -1,4 +1,5 @@
 [![GoDoc](https://pkg.go.dev/badge/github.com/yyle88/runpath)](https://pkg.go.dev/github.com/yyle88/runpath)
+[![Coverage Status](https://img.shields.io/coveralls/github/yyle88/runpath/master.svg)](https://coveralls.io/github/yyle88/runpath?branch=main)
 ![Supported Go Versions](https://img.shields.io/badge/Go-1.22%2C%201.23-lightgrey.svg)
 [![GitHub Release](https://img.shields.io/github/release/yyle88/runpath.svg)](https://github.com/yyle88/runpath/releases)
 [![Go Report Card](https://goreportcard.com/badge/github.com/yyle88/runpath)](https://goreportcard.com/report/github.com/yyle88/runpath)
