@@ -19,36 +19,36 @@ jobs:
         with:
           version: latest
 
-    test:
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          go: [ "1.22.x", "1.23.x" ]
-      steps:
-        - uses: actions/checkout@v4
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [ "1.22.x", "1.23.x" ]
+    steps:
+      - uses: actions/checkout@v4
 
-        - uses: actions/setup-go@v5
-          with:
-            go-version: ${{ matrix.go }}
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
 
-        - name: Run test
-          run: make test COVERAGE_DIR=/tmp/coverage
+      - name: Run test
+        run: make test COVERAGE_DIR=/tmp/coverage
 
-        - name: Send goveralls coverage
-          uses: shogo82148/actions-goveralls@v1
-          with:
-            path-to-profile: /tmp/coverage/combined.txt
-            flag-name: Go-${{ matrix.go }}
-            parallel: true
+      - name: Send goveralls coverage
+        uses: shogo82148/actions-goveralls@v1
+        with:
+          path-to-profile: /tmp/coverage/combined.txt
+          flag-name: Go-${{ matrix.go }}
+          parallel: true
 
-    check-coverage:
-      name: Check coverage
-      needs: [ test ]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: shogo82148/actions-goveralls@v1
-          with:
-            parallel-finished: true
+  check-coverage:
+    name: Check coverage
+    needs: [ test ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shogo82148/actions-goveralls@v1
+        with:
+          parallel-finished: true
 
   release:
     runs-on: ubuntu-latest
