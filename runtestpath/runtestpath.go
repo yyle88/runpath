@@ -37,6 +37,14 @@ func SrcPathChangeExtension(t *testing.T, pointExtension string) string {
 	return SrcSkipRemoveExtension(t, 1) + pointExtension
 }
 
+func SrcRex(t *testing.T, pointExtension string) string {
+	return SrcSkipRemoveExtension(t, 1) + pointExtension
+}
+
+func SrcNox(t *testing.T) string {
+	return SrcSkipRemoveExtension(t, 1)
+}
+
 func SrcPathRemoveExtension(t *testing.T) string {
 	return SrcSkipRemoveExtension(t, 1)
 }

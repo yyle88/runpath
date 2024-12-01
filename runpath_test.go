@@ -59,6 +59,18 @@ func TestGetPathChangeExtension(t *testing.T) {
 	require.True(t, strings.HasSuffix(path, "runpath/runpath_test.json"))
 }
 
+func TestGetRex(t *testing.T) {
+	path := GetRex(".json")
+	t.Log(path)
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test.json"))
+}
+
+func TestGetNox(t *testing.T) {
+	path := GetNox()
+	t.Log(path)
+	require.True(t, strings.HasSuffix(path, "runpath/runpath_test"))
+}
+
 func TestGetPathRemoveExtension(t *testing.T) {
 	path := GetPathRemoveExtension()
 	t.Log(path)

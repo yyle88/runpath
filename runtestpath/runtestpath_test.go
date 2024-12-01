@@ -32,6 +32,18 @@ func TestSrcPathChangeExtension(t *testing.T) {
 	require.True(t, strings.HasSuffix(path, "runpath/runtestpath/runtestpath.json"))
 }
 
+func TestSrcRex(t *testing.T) {
+	path := SrcRex(t, ".json")
+	t.Log(path)
+	require.True(t, strings.HasSuffix(path, "runpath/runtestpath/runtestpath.json"))
+}
+
+func TestSrcNox(t *testing.T) {
+	path := SrcNox(t)
+	t.Log(path)
+	require.True(t, strings.HasSuffix(path, "runpath/runtestpath/runtestpath"))
+}
+
 func TestSrcPathRemoveExtension(t *testing.T) {
 	path := SrcPathRemoveExtension(t)
 	t.Log(path)

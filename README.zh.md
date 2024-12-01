@@ -100,6 +100,12 @@ func TestSrcPathChangeExtension(t *testing.T) {
     t.Log(path)
     require.True(t, strings.HasSuffix(path, "runpath/runtestpath/utils_runtestpath.json"))
 }
+
+func TestSrcRex(t *testing.T) {
+    path := SrcRex(t, ".json")
+    t.Log(path)
+    require.True(t, strings.HasSuffix(path, "runpath/runtestpath/runtestpath.json"))
+}
 ```
 
 这样你就可以根据不同的测试需求加载不同格式的文件。

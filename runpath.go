@@ -54,6 +54,14 @@ func GetPathChangeExtension(pointExtension string) string {
 	return GetSkipRemoveExtension(1) + pointExtension
 }
 
+func GetRex(pointExtension string) string {
+	return GetSkipRemoveExtension(1) + pointExtension
+}
+
+func GetNox() string {
+	return GetSkipRemoveExtension(1)
+}
+
 // GetPathRemoveExtension 把当前源码的文件路径去除结尾.go，这个函数好像使用的频率不会很高吧，当然也不是很确定呢，就这样留着吧
 func GetPathRemoveExtension() string {
 	return GetSkipRemoveExtension(1)
