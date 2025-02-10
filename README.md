@@ -156,9 +156,9 @@ Thank you for using `runpath`!
 
 ---
 
-## See stars
+## Starring
 
-[![see stars](https://starchart.cc/yyle88/runpath.svg?variant=adaptive)](https://starchart.cc/yyle88/runpath)
+[![starring](https://starchart.cc/yyle88/runpath.svg?variant=adaptive)](https://starchart.cc/yyle88/runpath)
 
 Give me stars! Thank you!!!
 
