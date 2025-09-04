@@ -1,6 +1,7 @@
 package runtestpath
 
 import (
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -61,4 +62,11 @@ func TestAbsPath(t *testing.T) {
 	path, err := filepath.Abs(".")
 	require.NoError(t, err)
 	t.Log(path) //这里是对的，但不表示总是对的
+}
+
+func TestOsGetWD(t *testing.T) {
+	//这个是获取当前工作目录，和源码文件所在目录不一定是同一个目录，这和你运行测试的位置有关
+	path, err := os.Getwd()
+	require.NoError(t, err)
+	t.Log(path) //这里是工作区目录
 }
